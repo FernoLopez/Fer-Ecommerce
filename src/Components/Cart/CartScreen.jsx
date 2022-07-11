@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCartGlobal } from '../../store/slices/cart.slice'
 import getConfig from '../../Components/Login/utils/getConfig'
 import CartInfo from './CartInfo'
-import './style/cartScreen.css'
+import './Style/CartScreen.css'
 
 const CartScreen = () => {
 
