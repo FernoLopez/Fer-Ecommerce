@@ -4,26 +4,19 @@ import { useDispatch } from 'react-redux'
 /* import { useNavigate } from 'react-router-dom'  */
 import { getAllProducts } from '../../store/slices/product.slice'
 
-const InputSearch = () => {
+const InputSearch = ({setProductsSearch}) => {
 
-    const {handleSubmit, register, reset} = useForm()
-
-    const dispatch = useDispatch()
-   /* const navigate = useNavigate() */ 
-  
-    const submit = data => {
-      dispatch(getAllProducts(data.products))
-      reset({products: ''})
+    const changeInputText = e => {
+        setProductsSearch(e.target.value)
     }
-
-   /*  navigate('/')  */
-  
     return (
-      <form onSubmit={handleSubmit(submit)} className='form-home'>
-        <input type="text" className='input-home'{...register('products')} />
-        <button className='button-home'>Search</button>
+      <form>
+          <div>
+              <label htmlFor='search-input'>Search</label>
+              <input type='text' placeholder='Search your product' onChange={changeInputText}/>
+          </div>
       </form>
-    )
-  }
+)
+}
   
 export default InputSearch

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllProducts } from '../../store/slices/product.slice'
 import Card from './Card'
@@ -14,26 +14,41 @@ const Home = () => {
 
     console.log(products)
     
-    useEffect(() => {
-        dispatch(getAllProducts())
-    }, [])
+    const [productsSearch, setProductsSearch] = useState()
+    const [filterProducts, setFilterProducts] = useState()
     
+    console.log(products) 
+    
+    useEffect(() => {
+      if(products){
+        setFilterProducts(products.filter(e => e.title.includes(productsSearch.toLowerCase())))
+      }
+    }, [productsSearch])
 
-    return (
+    return(
       <div className='home'>
-        <InputSearch />
-        <div className='products-container'>
-          {
-            products.map(product => (
-              <Card 
-                key={product.id}
-                product={product}
-              />
-            ))
+        <InputSearch setProductsSearch={setProductsSearch}/>
+      <div className='products-container'>
+      {
+          filterProducts ?
+          filterProducts?.map(product => (
+            <Card 
+              key={product.id}
+              product={product}
+            />
+          ))
+        :
+          products?.map(product => (
+          <ProductCards
+          key={product.id}
+          product={product}
+          />
+          ))
           }
-        </div>
+          </div>
       </div>
     )
   }
+  
   
   export default Home
